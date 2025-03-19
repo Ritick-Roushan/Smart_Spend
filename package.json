@@ -1,0 +1,16 @@
+{
+  "name": "smart-spend",
+  "version": "1.0.0",
+  "description": "A website for finance management",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "javascript",
+    "backend",
+    "frontend"
+  ],
+  "author": "Ritick Roushan",
+  "license": "ISC"
+}
