@@ -6,7 +6,9 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } 
 import Layout from './Layout.jsx'
 import Login from './Login.jsx'
 import Signup from './Signup.jsx'
+import Footer from './components/Footer/Footer.jsx'
 import Home from './components/Home/Home.jsx'
+import Finance from './Finance.jsx'
 
 const router = createBrowserRouter([
   {
@@ -24,7 +26,15 @@ const router = createBrowserRouter([
         {
             path: "/Signup",
             element:  <Signup />
-        },   
+        },
+        {
+          path: "/Footer",
+          element:  <Footer />
+        },
+        {
+          path: "/Finance",
+          element:  <Finance />
+        },     
     ],
 },
 ])

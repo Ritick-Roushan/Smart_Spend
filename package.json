@@ -12,5 +12,8 @@
     "frontend"
   ],
   "author": "Ritick Roushan",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "react-redux": "^9.2.0"
+  }
 }
