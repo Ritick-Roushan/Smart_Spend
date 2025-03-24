@@ -9,6 +9,7 @@ import Signup from './Signup.jsx'
 import Footer from './components/Footer/Footer.jsx'
 import Home from './components/Home/Home.jsx'
 import Finance from './Finance.jsx'
+import CalculateTax from './CalculateTax.jsx'
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,11 @@ const router = createBrowserRouter([
         {
           path: "/Finance",
           element:  <Finance />
-        },     
+        },
+        {
+          path: "/CalculateTax",
+          element:  <CalculateTax />
+        },       
     ],
 },
 ])

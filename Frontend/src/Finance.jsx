@@ -18,11 +18,12 @@ const Finance = () => {
         const rent = parseFloat(formData.rent);
         const education = parseFloat(formData.education);
         const otherExpenses = parseFloat(formData.otherExpenses);
+        const tax = parseFloat(formData.Tax);
 
-        const totalExpenses = emi + rent + education + otherExpenses;
+        const totalExpenses = emi + rent + education + otherExpenses + (tax / 12);
         const savings = totalIncome - totalExpenses;
         const mutualFundInvestment = savings * 0.1;
-        const emergencyFund = mutualFundInvestment * 0.1;
+        const emergencyFund = savings * 0.05;
 
         setData({
             totalIncome,
@@ -147,6 +148,7 @@ const Finance = () => {
                                 { name: "emi", placeholder: "Monthly EMI (₹)", icon: "🏦" },
                                 { name: "rent", placeholder: "Monthly Rent (₹)", icon: "🏠" },
                                 { name: "education", placeholder: "Education Expenses (₹)", icon: "🎓" },
+                                { name: "Tax", placeholder: " Income Tax (₹)", icon: "💰" },
                                 { name: "otherExpenses", placeholder: "Other Expenses (₹)", icon: "🛒" },
                             ].map((field) => (
                                 <div key={field.name} className="relative">
@@ -264,7 +266,7 @@ const Finance = () => {
                         </motion.div>
                     </div>
                     <p className="mt-2 text-xs opacity-70">
-                        *Based on performance data as of 2025. Consult a financial advisor for latest rankings.
+                        *Based on performance data as of 2025. Consult our team for better suggestion.
                     </p>
                 </motion.aside>
             </div>

@@ -45,9 +45,9 @@ export default function Header() {
                         <ul className="flex space-x-6 font-medium">
                             {[
                                 { to: '/', label: 'Home' },
-                                { to: '#', label: 'About', isButton: true },
+                                { to: '#', label: 'About' },
                                 { to: '/Footer', label: 'Contact' },
-                                { to: '#', label: 'Github', isButton: true },
+                                { to: '/CalculateTax', label: 'CalculateTax' },
                                 { to: '/Finance', label: 'Finance' },
                             ].map((item, index) =>
                                 item.isButton ? (
