@@ -140,7 +140,7 @@ export default function Header() {
                             { to: '/', label: 'Home' },
                             { to: '#', label: 'About', isButton: true },
                             { to: '/Footer', label: 'Contact' },
-                            { to: '#', label: 'Github', isButton: true },
+                            { to: '/CalculateTax', label: 'CalculateTax'},
                             { to: '/Finance', label: 'Finance' },
                         ].map((item, index) =>
                             item.isButton ? (

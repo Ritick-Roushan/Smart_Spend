@@ -10,7 +10,7 @@ function Home() {
   };
 
   return (
-    <div 
+    <div
       className="relative flex flex-col items-center justify-start min-h-screen bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900 bg-cover bg-center overflow-hidden"
     >
       {/* Animated Background Layer */}
@@ -88,6 +88,33 @@ function Home() {
             className="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105"
           >
             Discover Our Services
+          </Link>
+        </motion.section>
+
+        {/* Tax Deductions Section */}
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={sectionVariants}
+          className="text-center mb-8 sm:mb-16 max-w-full sm:max-w-4xl mx-auto p-4 sm:p-6 rounded-xl backdrop-blur-md bg-white/10 shadow-xl border border-white/20"
+        >
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-300 to-indigo-300 bg-clip-text text-transparent mb-4">
+            Maximize Your Tax Deductions
+          </h2>
+          <p className="text-base sm:text-lg mb-4 sm:mb-6 font-light">
+            Reduce your taxable income and save money by claiming deductions when you file your taxes—here’s what you need to know.
+          </p>
+          <ul className="list-none text-left max-w-full sm:max-w-lg mx-auto space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+            <li className="flex items-center"><span className="text-blue-400 mr-2">✓</span> Claim charitable donations with receipts</li>
+            <li className="flex items-center"><span className="text-blue-400 mr-2">✓</span> Deduct medical expenses over the limit</li>
+            <li className="flex items-center"><span className="text-blue-400 mr-2">✓</span> Include mortgage interest from your loan</li>
+          </ul>
+          <Link
+            to="/CalculateTax"
+            className="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-2 sm:py-3 px-6 sm:px-8 rounded-full shadow-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105"
+          >
+            Start Calculating Income Tax
           </Link>
         </motion.section>
 

@@ -95,7 +95,7 @@ function CalculateTax() {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-3xl md:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
                 >
-                    Income Tax Calculator
+                    Income Tax Calculator (FY 2025-26)
                 </motion.h1>
 
                 <motion.div
