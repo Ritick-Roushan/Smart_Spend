@@ -144,11 +144,11 @@ const Finance = () => {
                         </p>
                         <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {[
-                                { name: "totalIncome", placeholder: "Total Annual Income (₹)", icon: "💰" },
+                                { name: "totalIncome", placeholder: "Total Monthly Income (₹)", icon: "💰" },
                                 { name: "emi", placeholder: "Monthly EMI (₹)", icon: "🏦" },
                                 { name: "rent", placeholder: "Monthly Rent (₹)", icon: "🏠" },
                                 { name: "education", placeholder: "Education Expenses (₹)", icon: "🎓" },
-                                { name: "Tax", placeholder: " Income Tax (₹)", icon: "💰" },
+                                { name: "Tax", placeholder: "Annual Income Tax (₹)", icon: "💰" },
                                 { name: "otherExpenses", placeholder: "Other Expenses (₹)", icon: "🛒" },
                             ].map((field) => (
                                 <div key={field.name} className="relative">
