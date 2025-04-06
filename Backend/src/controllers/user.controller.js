@@ -51,7 +51,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
     })
   
     if (existedUser) {
-      throw new ApiError(409, "User with email or usename already exists")
+      throw new ApiError(409, "User with this email or username already exists")
     }
   
     // console.log(req.files)

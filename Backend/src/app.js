@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import multer from "multer";
+import { errorHandler } from "./middlewares/errorhandler.js";
 
 const app = express();
 
@@ -24,5 +25,6 @@ app.use(express.static("public"));
 // Routes
 import userRouter from './routes/user.routes.js';
 app.use("/api/v1/users", userRouter);
+app.use(errorHandler);
 
 export { app };

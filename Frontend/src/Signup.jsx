@@ -12,37 +12,37 @@ function Signup() {
   const onSubmit = async (data) => {
     setIsLoading(true);
     setError(null);
-
+  
     try {
       const response = await fetch('http://localhost:8000/api/v1/users/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include', // Matches your Login setup
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
-          fullname: data.name, // Changed 'name' to 'fullname' to match backend
+          fullname: data.name,
           email: data.email,
           username: data.username,
           password: data.password,
         }),
       });
-
-      if (!response.ok) {
-        const text = await response.text(); // Get raw response
-        console.log('Raw error response:', text); // Debug
-        try {
-          const errorResult = JSON.parse(text);
-          throw new Error(errorResult.message || 'Failed to register');
-        } catch {
-          throw new Error('Server returned an unexpected response: ' + text.slice(0, 50));
-        }
+  
+      const text = await response.text();
+      console.log('Raw response:', text); // Debug
+  
+      let result;
+      try {
+        result = JSON.parse(text);
+      } catch {
+        throw new Error(`Server returned invalid response (${response.status}): ${text.slice(0, 50)}`);
       }
-
-      const result = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(result.message || `Registration failed with status ${response.status}`);
+      }
+  
       console.log('Registration successful:', result);
       alert('Registration successful!');
-      navigate('/Login'); // Redirect to Login page
+      navigate('/Login');
     } catch (error) {
       console.error('Error during registration:', error);
       setError(error.message || 'An error occurred. Please try again later.');
@@ -50,6 +50,7 @@ function Signup() {
       setIsLoading(false);
     }
   };
+
 
   // Animation variants for the form card
   const cardVariants = {
