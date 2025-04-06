@@ -1,45 +1,66 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"; // Added useLocation
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 function Login() {
   const navigate = useNavigate();
+  const location = useLocation(); // Get current location
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); // Added loading state
+  const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
-    setIsLoading(true); // Show loading state
-    setError(null); // Clear previous errors
+    setError(null);
+    setIsLoading(true);
 
     try {
-      // Simulated API call (replace with real API in production)
-      const dummyUser = {
-        email: "test@example.com",
-        password: "password123", // In reality, this would be hashed
+      if (!data.username?.trim() || !data.email?.trim()) {
+        setError("Both username and email are required.");
+        setIsLoading(false);
+        return;
+      }
+
+      const response = await fetch("http://localhost:8000/api/v1/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          username: data.username.trim(),
+          email: data.email.trim(),
+          password: data.password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorResult = await response.json();
+        throw new Error(errorResult.message || "Invalid login credentials");
+      }
+
+      const result = await response.json();
+      console.log("Login successful:", result);
+
+      // Store session in localStorage for Header to detect auth state
+      const userSession = {
+        email: data.email,
+        username: data.username,
+        isAuthenticated: true,
+        accessToken: result.data.accessToken || null,
       };
+      localStorage.setItem("session", JSON.stringify(userSession));
 
-      // Simulate network delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      alert("Login successful!");
 
-      if (data.email !== dummyUser.email) {
-        throw new Error("Email not found");
-      }
-      if (data.password !== dummyUser.password) {
-        throw new Error("Incorrect password");
-      }
+      // Determine redirect path
+      const from = location.state?.from || "/"; // Default to home page if no 'from' state
+      navigate(from, { replace: true }); // Redirect to originating page or home
 
-      // Store minimal user data (avoid sensitive info like password)
-      const userSession = { email: data.email, isAuthenticated: true };
-      localStorage.setItem("session", JSON.stringify(userSession)); // Use a session key instead of "user"
-
-      navigate("/dashboard");
-    } catch (err) {
-      setError(err.message); // Specific error messages
+    } catch (error) {
+      console.error("Login error:", error);
+      setError(error.message || "Something went wrong, please try again.");
     } finally {
-      setIsLoading(false); // Reset loading state
+      setIsLoading(false);
     }
   };
 
@@ -83,6 +104,21 @@ function Login() {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>
+            <label className="block text-white font-medium mb-1">Username</label>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">👤</span>
+              <input
+                {...register("username", { required: "Username is required" })}
+                type="text"
+                className={`w-full pl-10 pr-3 py-2 border rounded-lg bg-white/20 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent ${errors.username ? "border-red-500" : "border-gray-400"}`}
+                placeholder="Enter your username"
+                disabled={isLoading}
+              />
+            </div>
+            {errors.username && <p className="text-red-400 text-sm mt-1">{errors.username.message}</p>}
+          </div>
+
+          <div>
             <label className="block text-white font-medium mb-1">Email</label>
             <div className="relative">
               <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">✉️</span>
@@ -97,7 +133,7 @@ function Login() {
                 type="email"
                 className={`w-full pl-10 pr-3 py-2 border rounded-lg bg-white/20 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent ${errors.email ? "border-red-500" : "border-gray-400"}`}
                 placeholder="Enter your email"
-                disabled={isLoading} // Disable during submission
+                disabled={isLoading}
               />
             </div>
             {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email.message}</p>}
@@ -118,7 +154,7 @@ function Login() {
                 type="password"
                 className={`w-full pl-10 pr-3 py-2 border rounded-lg bg-white/20 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent ${errors.password ? "border-red-500" : "border-gray-400"}`}
                 placeholder="Enter your password"
-                disabled={isLoading} // Disable during submission
+                disabled={isLoading}
               />
             </div>
             {errors.password && <p className="text-red-400 text-sm mt-1">{errors.password.message}</p>}
@@ -127,7 +163,7 @@ function Login() {
           <button
             type="submit"
             className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-3 rounded-lg shadow-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={isLoading} // Disable button while loading
+            disabled={isLoading}
           >
             {isLoading ? "Logging In..." : "Login"}
           </button>
@@ -136,7 +172,7 @@ function Login() {
         <div className="mt-4 text-center text-white">
           <p>
             Don’t have an account?{" "}
-            <Link to="/signup" className="text-blue-400 hover:underline font-medium">
+            <Link to="/Signup" className="text-blue-400 hover:underline font-medium">
               Sign Up
             </Link>
           </p>
