@@ -19,9 +19,9 @@ function Signup() {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({
-          fullname: data.name,
-          email: data.email,
-          username: data.username,
+          fullname: data.name.trim(),
+          email: data.email.trim(),
+          username: data.username.trim(),
           password: data.password,
         }),
       });
